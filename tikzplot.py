@@ -1,24 +1,31 @@
 import collections as _coll
 
 
-class TikzElement:
-    name = "element"
-
-    def __init__(self, children=None, options=None, name=None):
-        if options is not None:
-            self.options = OptionList(options)
-        else:
-            self.options = OptionList()
-        if name is not None:
-            self.name = name
-        if children is None:
-            self.children = []
-        else:
-            self.children = children
+class BaseElement:
+    def __init__(self):
+        self.children=[]
 
     def write(self, file):
         for child in self.children:
             child.write(file)
+
+
+
+class TikzElement(BaseElement):
+    name = "element"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.options = OptionList(*args, **kwargs)
+
+    def __getitem__(self, item):
+        return self.options[item]
+
+    def __setitem__(self, key, value):
+        self.options[key] = value
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__,repr(self.options.values))
 
 
 class TikzCommand(TikzElement):
@@ -42,9 +49,6 @@ class TikzEnvironment(TikzElement):
         super().write(file)
         file.write("\\end{{{name}}}\n".format(name=self.name))
 
-    def set(self, key, value):
-        self.options[key] = value
-
 
 class BaseValue:
     pass
@@ -54,6 +58,9 @@ class Value(BaseValue):
     def __init__(self, value):
         super().__init__()
         self.value = value
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__,repr(self.value))
 
     def write(self, file):
         file.write("{}".format(self.value))
@@ -81,8 +88,14 @@ class BaseList:
     def __getitem__(self, item):
         return self.values[item]
 
+    def __delitem__(self, key):
+        del(self.values[key])
+
     def __contains__(self, item):
         return self.values.__contains__(item)
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__,repr(self.values))
 
     def write(self, file):
         for k, v in self.values.items():
@@ -113,10 +126,48 @@ class OptionList(BaseList):
 class Figure(TikzEnvironment):
     name = "tikzpicture"
 
+    def axis(self, *args, **kwargs):
+        ax = Axis(*args, **kwargs)
+        self.children.append(ax)
+        return ax
+
 
 class Axis(TikzEnvironment):
     name = "axis"
 
+    def plot(self, x, y, *args, **kwargs):
+        p = Plot(x, y, *args, **kwargs)
+        self.children.append(p)
+        return p
 
-class Plot(TikzCommand):
+
+class Plot(TikzElement):
     name = "addplot"
+
+    def __init__(self, x, y, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        coords = Coordinates()
+        for xi, yi in zip(x, y):
+            coords.children.append(Coordinate2d(xi,yi))
+        self.children.append(coords)
+
+    def write(self, file):
+        file.write("\\addplot")
+        self.options.write(file)
+        super().write(file)
+
+
+class Coordinates(BaseElement):
+    def write(self, file):
+        file.write("coordinates {\n")
+        super().write(file)
+        file.write('};')
+
+
+class Coordinate2d:
+    def __init__(self,x, y):
+        self.x = x
+        self.y = y
+
+    def write(self, file):
+        file.write("({}, {})\n".format(self.x, self.y))
