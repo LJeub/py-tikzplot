@@ -1,4 +1,7 @@
 import collections as _coll
+from os import path as _path
+from subprocess import run as _run
+from shutil import copyfile as _copyfile
 
 
 class BaseElement:
@@ -125,11 +128,32 @@ class OptionList(BaseList):
 
 class Figure(TikzEnvironment):
     name = "tikzpicture"
+    viewdir = _path.join(_path.dirname(__file__), 'tex')
 
     def axis(self, *args, **kwargs):
         ax = Axis(*args, **kwargs)
         self.children.append(ax)
         return ax
+
+    def view(self, latex='lualatex'):
+        with open(_path.join(self.viewdir, 'view.tikz'), 'w') as f:
+            self.write(f)
+        verbosity='-silent'
+        rv = _run(['latexmk', "-{}".format(latex), "-pv", verbosity, 'viewtemplate.tex'], cwd=self.viewdir)
+        if rv.returncode != 0:
+            with open(_path.join(self.viewdir, 'viewtemplate.log')) as f:
+                print(f.read())
+
+    def save(self, filename, latex='lualatex'):
+        with open(_path.join(self.viewdir, 'view.tikz'), 'w') as f:
+            self.write(f)
+        rv = _run(['latexmk', "-{}".format(latex), "-silent", 'viewtemplate.tex'], cwd=self.viewdir)
+        if rv.returncode != 0:
+            with open(_path.join(self.viewdir, 'viewtemplate.log')) as f:
+                print(f.read())
+        else:
+            _copyfile(_path.join(self.viewdir, 'viewtemplate.pdf'), filename)
+
 
 
 class Axis(TikzEnvironment):
