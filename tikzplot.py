@@ -140,6 +140,15 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+    def bar(self, x, y, *args, **kwargs):
+        p = Plot(x, y, 'ybar', 'ybar legend', 'fill', *args, **kwargs)
+        self.children.append(p)
+        return p
+
+    def hbar(self, x, y, *args, **kwargs):
+        p = Plot(x, y, 'xbar', 'xbar legend', 'fill', *args, **kwargs)
+        self.children.append(p)
+        return p
 
 class Plot(TikzElement):
     name = "addplot"
