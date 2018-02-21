@@ -1,4 +1,5 @@
 import collections as _coll
+from collections import abc as _type
 from os import path as _path
 from subprocess import run as _run
 from shutil import copyfile as _copyfile
@@ -27,8 +28,11 @@ class TikzElement(BaseElement):
     def __setitem__(self, key, value):
         self.options[key] = value
 
+    def __delitem__(self, key):
+        del(self.options[key])
+
     def __repr__(self):
-        return "{}({})".format(type(self).__name__,repr(self.options.values))
+        return "{}({})".format(type(self).__name__,repr(self.options))
 
 
 class TikzCommand(TikzElement):
@@ -69,39 +73,33 @@ class Value(BaseValue):
         file.write("{}".format(self.value))
 
 
-class BaseList:
+class BaseList(_coll.OrderedDict):
     def __init__(self, *args, **kwargs):
         super().__init__()
-        if args and isinstance(args[0], BaseList):
-            options = args[0].values()
-        elif kwargs and isinstance(kwargs.get('options',None), BaseList):
-            options = kwargs['options'].values()
-        else:
-            options = dict(*args, **kwargs)
-        self.values = _coll.OrderedDict()
-        for opt in options.items():
-            self[opt[0]] = opt[1]
+        self.add(*args, **kwargs)
 
     def __setitem__(self, key, value):
         if value is None or isinstance(value, BaseValue):
-            self.values[key] = value
+            super().__setitem__(key, value)
         else:
-            self.values[key] = Value(value)
+            super().__setitem__(key, Value(value))
 
-    def __getitem__(self, item):
-        return self.values[item]
-
-    def __delitem__(self, key):
-        del(self.values[key])
-
-    def __contains__(self, item):
-        return self.values.__contains__(item)
-
-    def __repr__(self):
-        return "{}({})".format(type(self).__name__,repr(self.values))
+    def add(self, *args, **kwargs):
+        for arg in args:
+            if isinstance(arg, _type.Mapping):
+                for key, value in arg.items():
+                    self[key] = value
+            elif isinstance(arg, tuple) and len(arg) == 2:
+                self[arg[0]] = arg[1]
+            elif isinstance(arg, str):
+                self[arg] = None
+            elif isinstance(arg, _type.Iterable):
+                self.add(arg)
+        for key, value in kwargs.items():
+            self[key] = value
 
     def write(self, file):
-        for k, v in self.values.items():
+        for k, v in self.items():
             if v is None:
                 file.write("{key}, ".format(key=k))
             else:
