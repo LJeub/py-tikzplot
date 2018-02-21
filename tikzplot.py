@@ -113,17 +113,19 @@ class BaseList:
 class ValueList(BaseList, BaseValue):
 
     def write(self, file):
-        file.write("{")
-        super().write(file)
-        file.write("}")
+        if self:
+            file.write("{")
+            super().write(file)
+            file.write("}")
 
 
 class OptionList(BaseList):
 
     def write(self, file):
-        file.write("[")
-        BaseList.write(self, file)
-        file.write("]")
+        if self:
+            file.write("[")
+            BaseList.write(self, file)
+            file.write("]")
 
 
 class Figure(TikzEnvironment):
