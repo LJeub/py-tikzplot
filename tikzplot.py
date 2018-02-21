@@ -174,27 +174,71 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+
+class Label(TikzCommand):
+    name = "label"
+
+    def __init__(self, label=None):
+        super().__init__()
+        if label is not None:
+            self.children = [Value(label)]
+
+    def __set__(self, instance, value):
+        if value is None:
+            self.children = []
+        else:
+            self.children = [Value(value)]
+
+    def write(self, file):
+        if self.children:
+            super().write(file)
+
+
+class LegendEntry(TikzCommand):
+    name='addlegendentry'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def __set__(self, instance, value):
+        if value is None:
+            self.children = []
+        else:
+            self.children = [Value(value)]
+
+    def write(self, file):
+        if self.children:
+            super().write(file)
+
+
 class Plot(TikzElement):
     name = "addplot"
+    label = Label()
+    legendentry = LegendEntry()
 
-    def __init__(self, x, y, *args, **kwargs):
+    def __init__(self, x, y, *args, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
         coords = Coordinates()
         for xi, yi in zip(x, y):
             coords.children.append(Coordinate2d(xi,yi))
         self.children.append(coords)
+        self.label = texlabel
+        self.legendentry = legendentry
 
     def write(self, file):
         file.write("\\addplot")
         self.options.write(file)
+        file.write("\n")
         super().write(file)
+        self.label.write(file)
+        self.legendentry.write(file)
 
 
 class Coordinates(BaseElement):
     def write(self, file):
         file.write("coordinates {\n")
         super().write(file)
-        file.write('};')
+        file.write('};\n')
 
 
 class Coordinate2d:
@@ -204,3 +248,4 @@ class Coordinate2d:
 
     def write(self, file):
         file.write("({}, {})\n".format(self.x, self.y))
+
