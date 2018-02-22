@@ -183,7 +183,7 @@ class Label(TikzCommand):
         if label is not None:
             self.children = [Value(label)]
 
-    def __set__(self, instance, value):
+    def set(self, value):
         if value is None:
             self.children = []
         else:
@@ -199,8 +199,16 @@ class LegendEntry(TikzCommand):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        value = None
+        if 'legendentry' in kwargs:
+            value = kwargs.pop('legendentry')
+        elif args:
+            value = args[0]
+            args=args[1:]
+        super().__init__(*args,**kwargs)
+        self.set(value)
 
-    def __set__(self, instance, value):
+    def set(self, value):
         if value is None:
             self.children = []
         else:
@@ -213,8 +221,6 @@ class LegendEntry(TikzCommand):
 
 class Plot(TikzElement):
     name = "addplot"
-    label = Label()
-    legendentry = LegendEntry()
 
     def __init__(self, x, y, *args, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -222,8 +228,24 @@ class Plot(TikzElement):
         for xi, yi in zip(x, y):
             coords.children.append(Coordinate2d(xi,yi))
         self.children.append(coords)
-        self.label = texlabel
-        self.legendentry = legendentry
+        self._label = Label(texlabel)
+        self._legendentry = LegendEntry(legendentry)
+
+    @property
+    def legendentry(self):
+        return self._legendentry
+
+    @legendentry.setter
+    def legendentry(self, value):
+        self._legendentry.set(value)
+
+    @property
+    def label(self):
+        return self._label
+
+    @label.setter
+    def label(self, value):
+        self._label.set(value)
 
     def write(self, file):
         file.write("\\addplot")
