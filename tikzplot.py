@@ -77,7 +77,8 @@ class Value(BaseValue):
         return "{}({})".format(type(self).__name__,repr(self.value))
 
     def write(self, file):
-        file.write("{}".format(self.value))
+        if self.value is not None:
+            file.write("{}".format(self.value))
 
 
 class BaseList(_coll.OrderedDict):
