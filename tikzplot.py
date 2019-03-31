@@ -81,6 +81,23 @@ class Value(BaseValue):
             file.write("{}".format(self.value))
 
 
+class EncapsulatedValue(BaseValue):
+    def __init__(self, value):
+        super().__init__()
+        if isinstance(value, BaseValue):
+            self.value = value
+        else:
+            self.value = Value(value)
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__,repr(self.value))
+
+    def write(self, file):
+        if self.value is not None:
+            file.write('{')
+            self.value.write(file)
+            file.write('}')
+
 class BaseList(_coll.OrderedDict):
     def __init__(self, *args, **kwargs):
         super().__init__()
