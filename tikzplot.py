@@ -266,16 +266,10 @@ class Plot(TikzElement):
         for xi, yi in zip(x, y):
             coords.children.append(Coordinate2d(xi,yi))
         self.children.append(coords)
-        self._label = Label(texlabel)
-        self._legendentry = LegendEntry(legendentry)
-
-    @property
-    def legendentry(self):
-        return self._legendentry
-
-    @legendentry.setter
-    def legendentry(self, value):
-        self._legendentry.set(value)
+        self._label = Label()
+        self._legend = LegendEntry()
+        self.label = texlabel
+        self.legend = legendentry
 
     @property
     def label(self):
@@ -285,13 +279,21 @@ class Plot(TikzElement):
     def label(self, value):
         self._label.set(value)
 
+    @property
+    def legend(self):
+        return self._legend
+
+    @legend.setter
+    def legend(self, value):
+        self._legend.set(value)
+
     def write(self, file):
-        file.write("\\addplot")
+        file.write("\\addplot+")
         self.options.write(file)
         file.write("\n")
         super().write(file)
         self.label.write(file)
-        self.legendentry.write(file)
+        self.legend.write(file)
 
 
 class Coordinates(BaseElement):
