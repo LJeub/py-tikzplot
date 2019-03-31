@@ -1,5 +1,6 @@
 import collections as _coll
 from collections import abc as _type
+from numbers import Number
 from os import path as _path
 from subprocess import run as _run
 from shutil import copyfile as _copyfile
@@ -129,7 +130,7 @@ class BaseList(_coll.OrderedDict):
                     self[key] = value
             elif isinstance(arg, tuple) and len(arg) == 2:
                 self[arg[0]] = arg[1]
-            elif isinstance(arg, str):
+            elif isinstance(arg, str) or isinstance(arg, Number):
                 self[arg] = None
             elif isinstance(arg, _type.Iterable):
                 self.add(arg)
