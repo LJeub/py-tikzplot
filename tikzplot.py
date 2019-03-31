@@ -120,10 +120,7 @@ class BaseList(_coll.OrderedDict):
         self.add(*args, **kwargs)
 
     def __setitem__(self, key, value):
-        if value is None or isinstance(value, BaseValue):
-            super().__setitem__(key, value)
-        else:
-            super().__setitem__(key, Value(value))
+        super().__setitem__(key, as_tikz_value(value))
 
     def add(self, *args, **kwargs):
         for arg in args:
@@ -312,3 +309,42 @@ class Coordinate2d:
     def write(self, file):
         file.write("({}, {})\n".format(self.x, self.y))
 
+
+def as_tikz_value(value):
+    if isinstance(value, Coordinate):
+        return EncapsulatedValue(value)
+    elif  isinstance(value, tuple) and isinstance(value[0], Number):
+        return EncapsulatedValue(value)
+    elif value is None or isinstance(value, BaseValue):
+        return value
+    elif isinstance(value, _type.Iterable) and not isinstance(value, str):
+        return ValueList(value)
+    else:
+        return Value(value)
+
+
+class EscapeDict(dict):
+    def __missing__(self, key):
+        return key
+
+
+def tikz_escape_value(value):
+    escape_dict = EscapeDict({
+        '&': r'\&',
+        '_': r'\_',
+        '$': r'\$',
+        '^': r'\^',
+        '#': r'\#',
+        '%': r'\%',
+        '{': r'\{',
+        '}': r'\}',
+        '\\': r'\textbackslash'
+    })
+    if isinstance(value, str):
+        return "".join(escape_dict[v] for v in value)
+    elif isinstance(value, _type.Iterable):
+        return [tikz_escape_value(v) for v in value]
+    elif isinstance(value, _type.Mapping):
+        return type(value)((k, tikz_escape_value(v)) for k, v in value.items())
+    else:
+        return value
