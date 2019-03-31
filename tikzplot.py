@@ -34,7 +34,8 @@ class TikzElement(BaseElement):
         self.options[key] = value
 
     def __delitem__(self, key):
-        del(self.options[key])
+        if key in self.options:
+            del(self.options[key])
 
     def __repr__(self):
         return "{}({})".format(type(self).__name__,repr(self.options))
