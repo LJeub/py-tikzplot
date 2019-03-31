@@ -166,7 +166,7 @@ class OptionList(BaseList):
     def write(self, file):
         if self:
             file.write("[")
-            BaseList.write(self, file)
+            super().write(file)
             file.write("]")
 
 
