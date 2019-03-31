@@ -139,13 +139,17 @@ class BaseList(_coll.OrderedDict):
             self[key] = value
 
     def write(self, file):
-        for k, v in self.items():
-            if v is None:
-                file.write("{key}, ".format(key=k))
+        items = list(self.items())
+        def write_item(item):
+            if item[1] is None:
+                file.write("{key}".format(key=item[0]))
             else:
-                file.write("{key}=".format(key=k))
-                v.write(file)
-                file.write(", ")
+                file.write("{key}=".format(key=item[0]))
+                item[1].write(file)
+        for item in items[:-1]:
+            write_item(item)
+            file.write(', ')
+        write_item(items[-1])
 
 
 class ValueList(BaseList, BaseValue):
