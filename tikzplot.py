@@ -64,7 +64,8 @@ class TikzEnvironment(TikzElement):
 
 
 class BaseValue:
-    pass
+    def write(self, file):
+        pass
 
 
 class Value(BaseValue):
