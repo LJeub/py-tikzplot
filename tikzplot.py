@@ -98,6 +98,22 @@ class EncapsulatedValue(BaseValue):
             self.value.write(file)
             file.write('}')
 
+
+class RGB(Value):
+    def __init__(self, *args):
+        super().__init__(None)
+        if len(args) == 1:
+            self.value = args[0]
+        elif len(args) == 3:
+            self.value = args
+        else:
+            raise ValueError('wrong number of arguments for color')
+
+    def write(self, file):
+        if self.value is not None:
+            file.write("{" + "rgb,1:red,{0};green,{1};blue,{2}".format(*self.value) + "}")
+
+
 class BaseList(_coll.OrderedDict):
     def __init__(self, *args, **kwargs):
         super().__init__()
