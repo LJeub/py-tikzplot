@@ -237,14 +237,13 @@ class LegendEntry(TikzCommand):
     name='addlegendentry'
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         value = None
         if 'legendentry' in kwargs:
             value = kwargs.pop('legendentry')
         elif args:
             value = args[0]
-            args=args[1:]
-        super().__init__(*args,**kwargs)
+            args = args[1:]
+        super().__init__(*args, **kwargs)
         self.set(value)
 
     def set(self, value):
