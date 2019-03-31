@@ -303,8 +303,14 @@ class Coordinates(BaseElement):
         file.write('};\n')
 
 
-class Coordinate2d:
+class Coordinate:
+    def write(self, file):
+        pass
+
+
+class Coordinate2d(Coordinate, BaseValue):
     def __init__(self,x, y):
+        super().__init__()
         self.x = x
         self.y = y
 
