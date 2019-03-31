@@ -133,7 +133,8 @@ class BaseList(_coll.OrderedDict):
             elif isinstance(arg, str) or isinstance(arg, Number):
                 self[arg] = None
             elif isinstance(arg, _type.Iterable):
-                self.add(arg)
+                for arg2 in arg:
+                    self.add(arg2)
         for key, value in kwargs.items():
             self[key] = value
 
