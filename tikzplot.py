@@ -194,7 +194,6 @@ class Figure(TikzEnvironment):
             _copyfile(_path.join(self.viewdir, 'viewtemplate.pdf'), filename)
 
 
-
 class Axis(TikzEnvironment):
     name = "axis"
 
@@ -204,12 +203,12 @@ class Axis(TikzEnvironment):
         return p
 
     def bar(self, x, y, *args, **kwargs):
-        p = Plot(x, y, 'ybar', 'ybar legend', 'fill', *args, **kwargs)
+        p = Plot(x, y, 'ybar', 'ybar legend', 'fill', *args, mark='none', **kwargs)
         self.children.append(p)
         return p
 
     def hbar(self, x, y, *args, **kwargs):
-        p = Plot(x, y, 'xbar', 'xbar legend', 'fill', *args, **kwargs)
+        p = Plot(x, y, 'xbar', 'xbar legend', 'fill', *args, mark='none', **kwargs)
         self.children.append(p)
         return p
 
