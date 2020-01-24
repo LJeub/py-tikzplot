@@ -4,21 +4,20 @@ from numbers import Number
 from os import path as _path
 from subprocess import run as _run
 from shutil import copyfile as _copyfile
+import tempfile
 
 
 class BaseElement:
     def __init__(self):
-        self.children=[]
+        self.children = []
 
     def __del__(self):
         for child in self.children:
             del(child)
 
-
     def write(self, file):
         for child in self.children:
             child.write(file)
-
 
 
 class TikzElement(BaseElement):
@@ -39,7 +38,7 @@ class TikzElement(BaseElement):
             del(self.options[key])
 
     def __repr__(self):
-        return "{}({})".format(type(self).__name__,repr(self.options))
+        return "{}({})".format(type(self).__name__, repr(self.options))
 
 
 class TikzCommand(TikzElement):
@@ -140,12 +139,14 @@ class BaseList(_coll.OrderedDict):
 
     def write(self, file):
         items = list(self.items())
+
         def write_item(item):
             if item[1] is None:
                 file.write("{key}".format(key=item[0]))
             else:
                 file.write("{key}=".format(key=item[0]))
                 item[1].write(file)
+
         for item in items[:-1]:
             write_item(item)
             file.write(', ')
@@ -172,7 +173,14 @@ class OptionList(BaseList):
 
 class Figure(TikzEnvironment):
     name = "tikzpicture"
+    index = 0
     viewdir = _path.join(_path.dirname(__file__), 'tex')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.index = Figure.index + 1
+        Figure.index += 1
+        self._wdir = tempfile.TemporaryDirectory(dir=self.viewdir)
 
     def axis(self, *args, **kwargs):
         ax = Axis(*args, **kwargs)
@@ -180,23 +188,25 @@ class Figure(TikzEnvironment):
         return ax
 
     def view(self, latex='lualatex'):
-        with open(_path.join(self.viewdir, 'view.tikz'), 'w') as f:
+        with open(_path.join(self._wdir.name, 'Figure_{}.tikz'.format(self.index)), 'w') as f:
             self.write(f)
-        verbosity='-silent'
-        rv = _run(['latexmk', "-{}".format(latex), "-pv", verbosity, 'viewtemplate.tex'], cwd=self.viewdir)
+        verbosity = '-silent'
+        rv = _run(['latexmk', "-{}".format(latex), "-pv", verbosity, "-jobname=Figure_{}".format(self.index),
+                   _path.join(self.viewdir, 'viewtemplate.tex')], cwd=self._wdir.name)
         if rv.returncode != 0:
-            with open(_path.join(self.viewdir, 'viewtemplate.log')) as f:
+            with open(_path.join(self._wdir.name, 'Figure_{}.log'.format(self.index))) as f:
                 print(f.read())
 
     def save(self, filename, latex='lualatex'):
-        with open(_path.join(self.viewdir, 'view.tikz'), 'w') as f:
+        with open(_path.join(self._wdir.name, 'Figure_{}.tikz'.format(self.index)), 'w') as f:
             self.write(f)
-        rv = _run(['latexmk', "-{}".format(latex), "-silent", 'viewtemplate.tex'], cwd=self.viewdir)
+        rv = _run(['latexmk', "-{}".format(latex), "-silent", "-jobname=Figure_{}".format(self.index),
+                   _path.join(self.viewdir, 'viewtemplate.tex')], cwd=self._wdir.name)
         if rv.returncode != 0:
-            with open(_path.join(self.viewdir, 'viewtemplate.log')) as f:
+            with open(_path.join(self._wdir.name, 'Figure_{}.log'.format(self.index))) as f:
                 print(f.read())
         else:
-            _copyfile(_path.join(self.viewdir, 'viewtemplate.pdf'), filename)
+            _copyfile(_path.join(self._wdir.name, 'Figure_{}.pdf'.format(self.index)), filename)
 
 
 class Axis(TikzEnvironment):

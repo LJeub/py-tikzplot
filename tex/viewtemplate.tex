@@ -3,6 +3,7 @@
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
 % any customization goes here
 \pgfplotsset{
 legend pos/outer south/.style={
@@ -25,6 +26,7 @@ legend pos/outer south/.style={
  /tikz/every odd column/.append style={column sep=0.3em},
  /tikz/every even column/.append style={column sep=1em, anchor=mid west}, nodes={text depth=,inner xsep=0pt}}}
 \pgfplotsset{every axis plot/.append style={line join=round, line cap=round}}
+\pgfplotsset{/tikz/mark size={1pt}}
 
 \newlength{\figwidth}
 \newlength{\figheight}
@@ -32,6 +34,6 @@ legend pos/outer south/.style={
 \setlength{\figheight}{0.75\textwidth}
 \begin{document}
 
-    \input{view.tikz} %input actual figure content
+    \input{\jobname.tikz} %input actual figure content
 
 \end{document}
