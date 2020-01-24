@@ -187,6 +187,10 @@ class Figure(TikzEnvironment):
         self.children.append(ax)
         return ax
 
+    def save_tikz(self, filename):
+        with open(filename) as f:
+            self.write(f)
+
     def view(self, latex='lualatex'):
         with open(_path.join(self._wdir.name, 'Figure_{}.tikz'.format(self.index)), 'w') as f:
             self.write(f)
