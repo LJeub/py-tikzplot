@@ -207,6 +207,11 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+    def errorplot(self, x, y, e, *args, **kwargs):
+        p = ErrorPlot(x, y, e, *args, **kwargs)
+        self.children.append(p)
+        return p
+
     def bar(self, x, y, *args, **kwargs):
         p = Plot(x, y, 'ybar', 'ybar legend', 'fill', *args, mark='none', **kwargs)
         self.children.append(p)
@@ -266,9 +271,13 @@ class Plot(TikzElement):
 
     def __init__(self, x, y, *args, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
+        if 'mark options' in self.options:
+            old_marks = self['mark options']
+            self['mark options'] = OptionList({'solid': None, 'fill opacity': 1})
+            self['mark options'].add(old_marks)
         coords = Coordinates()
         for xi, yi in zip(x, y):
-            coords.children.append(Coordinate2d(xi,yi))
+            coords.children.append(Coordinate2d(xi, yi))
         self.children.append(coords)
         self._label = Label()
         self._legend = LegendEntry()
@@ -300,6 +309,68 @@ class Plot(TikzElement):
         self.legend.write(file)
 
 
+class Fill(TikzElement):
+    name = 'fill between'
+    def __init__(self, top, bottom, *args, fill_options=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fill_options = OptionList(fill_options)
+        self.fill_options['of'] = '{} and {}'.format(top, bottom)
+
+    def write(self, file):
+        file.write('\\addplot+')
+        self.options.write(file)
+        file.write(' fill between ')
+        self.fill_options.write(file)
+        file.write(';\n')
+
+
+class ErrorLegendImage(TikzElement):
+    def write(self, file):
+        del(self['forget plot'])
+        if 'draw' not in self.options:
+            self['draw'] = 'none'
+        file.write(r'{\fill')
+        self.options.write(file)
+        file.write('(0cm, -0.1cm) rectangle(0.6cm, 0.1cm);')
+        file.write(r'\draw[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
+
+
+class ErrorPlot(TikzElement):
+    index = 0
+    name = 'ErrorPlot'
+    def __init__(self, x, y, e, *args, line_options=None, error_options=None, texlabel=None, legendentry=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.line = Plot(x, y, texlabel=texlabel, legendentry=legendentry)
+        self.line.options.add(*args, **kwargs)
+        if line_options is not None:
+            self.line.options.add(line_options)
+        self.error_top = Plot(x, [yi + ei[0] for yi, ei in zip(y, e)], 'forget plot', draw='none', mark='none')
+        self.error_top['name path'] = 'e_top_{}'.format(self.index)
+        self.error_bottom = Plot(x, [yi - ei[1] for yi, ei in zip(y, e)], 'forget plot', draw='none', mark='none')
+        self.error_bottom['name path'] = 'e_bot_{}'.format(self.index)
+        self.error = Fill('e_top_{}'.format(self.index), 'e_bot_{}'.format(self.index), 'forget plot')
+        self.error['fill opacity'] = 0.1
+        self.error.options.add(*args, **kwargs)
+        self.error.options.add(error_options)
+        self.children = [self.error_top, self.error_bottom, self.error, self.line]
+        ErrorPlot.index += 1
+
+    def __setitem__(self, key, value):
+        self.options[key] = value
+        self.line[key] = value
+        self.error[key] = value
+
+    def __delitem__(self, key):
+        if key in self.options:
+            del(self.options[key])
+            del(self.line[key])
+            del(self.error[key])
+
+    def write(self, file):
+        self.line['legend image code/.code'] = ErrorLegendImage(self.error.options)
+        super().write(file)
+        
+
 class Coordinates(BaseElement):
     def write(self, file):
         file.write("coordinates {\n")
@@ -325,9 +396,9 @@ class Coordinate2d(Coordinate, BaseValue):
 def as_tikz_value(value):
     if isinstance(value, Coordinate):
         return EncapsulatedValue(value)
-    elif  isinstance(value, tuple) and isinstance(value[0], Number):
+    elif isinstance(value, tuple) and isinstance(value[0], Number):
         return EncapsulatedValue(value)
-    elif value is None or isinstance(value, BaseValue):
+    elif value is None or isinstance(value, BaseValue) or isinstance(value, BaseElement):
         return value
     elif isinstance(value, _type.Iterable) and not isinstance(value, str):
         return ValueList(value)
