@@ -27,6 +27,9 @@ class TikzElement(BaseElement):
         super().__init__()
         self.options = OptionList(*args, **kwargs)
 
+    def __contains__(self, item):
+        return item in self.options
+
     def __getitem__(self, item):
         return self.options[item]
 
