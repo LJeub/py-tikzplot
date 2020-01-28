@@ -4,7 +4,24 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 \usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{groupplots}
 % any customization goes here
+\pgfplotsset{colormap={tableau}{HTML=(1F77B4) HTML=(FF7F0E) HTML=(2CA02C) HTML=(D62728) HTML=(9467BD) HTML=(8C564B)%
+HTML=(E377C2) HTML=(7F7F7F) HTML=(BCBD22) HTML=(17BECF)}}
+\pgfplotsset{colormap name=viridis}
+\pgfplotsset{mark list fill={.}}
+\pgfplotscreateplotcyclelist{mymarks}{
+    every mark/.append style={solid,fill=\pgfplotsmarklistfill, scale=1.1, fill opacity=1},mark=*\\
+    every mark/.append style={solid,fill=\pgfplotsmarklistfill},mark=square*\\
+    every mark/.append style={solid,fill=\pgfplotsmarklistfill, scale=1.5},mark=triangle*\\
+    every mark/.append style={solid,fill=\pgfplotsmarklistfill, scale=1.5},mark=diamond*\\
+    every mark/.append style={solid,fill=\pgfplotsmarklistfill, scale=1.5},mark=pentagon*\\
+    every mark/.append style={solid, scale=2},mark=x\\
+    every mark/.append style={solid, scale=2},mark=asterisk\\
+}
+
+\pgfplotsset{cycle multiindex* list={[of colormap=tableau] \nextlist mymarks}}
+
 \pgfplotsset{
 legend pos/outer south/.style={
     /pgfplots/legend style={
