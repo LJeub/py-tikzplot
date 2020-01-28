@@ -199,6 +199,11 @@ class Figure(TikzEnvironment):
         self.children.append(ax)
         return ax
 
+    def subplot(self, *args, **kwargs):
+        ax = GroupPlot(*args, **kwargs)
+        self.children.append(ax)
+        return ax
+
     def save_tikz(self, filename):
         with open(filename, 'w') as f:
             self.write(f)
@@ -247,6 +252,123 @@ class Axis(TikzEnvironment):
         p = Plot(x, y, 'xbar', 'xbar legend', 'fill', *args, mark='none', **kwargs)
         self.children.append(p)
         return p
+
+
+class NextPlot(Axis, TikzCommand):
+    name = 'nextgroupplot'
+    write = TikzCommand.write
+
+
+class Node(TikzCommand):
+    name = "node"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'value' in self:
+            value = self['value']
+            del self['value']
+        else:
+            value = None
+        self.value = value
+
+    def write(self, file):
+        self.children = [EncapsulatedValue(self.value)]
+        super().write(file)
+        file.write(';')
+
+
+class GroupPlot(TikzEnvironment):
+    class XLabel(Node):
+        def __init__(self, *args, position='north', **kwargs):
+            super().__init__('/pgfplots/every axis label', *args, **kwargs)
+            self.position = position
+
+        @property
+        def position(self):
+            return self._position
+
+        @position.setter
+        def position(self, value):
+
+            if value == 'north':
+                self['at'] = '(gbox.north)'
+                self['anchor'] = 'south'
+            elif value == 'south':
+                self['at'] = '(gbox.south)'
+                self['anchor'] = 'north'
+            else:
+                raise(ValueError("unknown position {}".format(value)))
+            self._position = value
+
+        def write(self, file):
+            if self.value is not None:
+                super().write(file)
+
+    class YLabel(Node):
+        def __init__(self, *args, position='west', **kwargs):
+
+            default_args = ['/pgfplots/every axis label', ('anchor', 'south')]
+
+            super().__init__(*default_args,
+                             *args, **kwargs)
+            self.position = position
+
+        @property
+        def position(self):
+            return self._position
+
+        @position.setter
+        def position(self, value):
+            if value == 'west':
+                self['at'] = '(gbox.west)'
+                self['rotate'] = 90
+            elif value == 'east':
+                self['at'] = '(gbox.east)'
+                self['rotate'] = 270
+            else:
+                raise (ValueError("unknown position {}".format(value)))
+            self._position = value
+
+        def write(self, file):
+            if self.value is not None:
+                super().write(file)
+
+    name = 'groupplot'
+
+    def __init__(self, *args, rows=1, cols=1, xlabel=None, ylabel=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.rows = rows
+        self.cols = cols
+
+        if isinstance(xlabel, _type.Mapping):
+            self.xlabel = self.XLabel(xlabel)
+        else:
+            self.xlabel = self.XLabel(value=xlabel)
+
+        if isinstance(ylabel, _type.Mapping):
+            self.ylabel = self.YLabel(ylabel)
+        else:
+            self.ylabel = self.YLabel(value=ylabel)
+
+    def nextaxis(self, *args, **kwargs):
+        ax = NextPlot(*args, **kwargs)
+        self.children.append(ax)
+        return ax
+
+    def write(self, file):
+        if 'group style' in self:
+            go = self['group style']
+            if not ('group size' in go or 'columns' in go or 'rows' in go):
+                go['columns'] = self.cols
+                go['rows'] = self.rows
+        else:
+            self['group style'] = {'columns': self.cols, 'rows': self.rows}
+
+        file.write(r'\begin{scope}[local bounding box=gbox]')
+        super().write(file)
+        file.write(r'\end{scope}')
+        self.ylabel.write(file)
+        self.xlabel.write(file)
 
 
 class Label(TikzCommand):
