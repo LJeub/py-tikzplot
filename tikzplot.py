@@ -200,7 +200,7 @@ class Figure(TikzEnvironment):
         return ax
 
     def save_tikz(self, filename):
-        with open(filename) as f:
+        with open(filename, 'w') as f:
             self.write(f)
 
     def view(self, latex='lualatex'):
