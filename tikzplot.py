@@ -48,21 +48,30 @@ class TikzCommand(TikzElement):
     name = "cmd"
 
     def write(self, file):
+        file.write("%\n")
         file.write("\\{name}".format(name=self.name))
         self.options.write(file)
-        file.write("{")
         super().write(file)
-        file.write("}\n")
+
+
+class Ref(TikzCommand):
+    name = 'ref'
+
+    def __init__(self, label):
+        super().__init__()
+        self.children.append(EncapsulatedValue(label))
 
 
 class TikzEnvironment(TikzElement):
     name = "env"
 
     def write(self, file):
+        file.write("%\n")
         file.write("\\begin{{{name}}}".format(name=self.name))
         self.options.write(file)
-        file.write("\n")
+        file.write("%\n")
         super().write(file)
+        file.write("%\n")
         file.write("\\end{{{name}}}\n".format(name=self.name))
 
 
@@ -246,13 +255,13 @@ class Label(TikzCommand):
     def __init__(self, label=None):
         super().__init__()
         if label is not None:
-            self.children = [Value(label)]
+            self.children = [EncapsulatedValue(label)]
 
     def set(self, value):
         if value is None:
             self.children = []
         else:
-            self.children = [Value(value)]
+            self.children = [EncapsulatedValue(value)]
 
     def write(self, file):
         if self.children:
@@ -276,15 +285,15 @@ class LegendEntry(TikzCommand):
         if value is None:
             self.children = []
         else:
-            self.children = [Value(value)]
+            self.children = [EncapsulatedValue(value)]
 
     def write(self, file):
         if self.children:
             super().write(file)
 
 
-class Plot(TikzElement):
-    name = "addplot"
+class Plot(TikzCommand):
+    name = "addplot+"
 
     def __init__(self, x, y, *args, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -318,9 +327,6 @@ class Plot(TikzElement):
         self._legend.set(value)
 
     def write(self, file):
-        file.write("\\addplot+")
-        self.options.write(file)
-        file.write("\n")
         super().write(file)
         self.label.write(file)
         self.legend.write(file)
@@ -390,6 +396,7 @@ class ErrorPlot(TikzElement):
 
 class Coordinates(BaseElement):
     def write(self, file):
+        file.write("%\n")
         file.write("coordinates {\n")
         super().write(file)
         file.write('};\n')
