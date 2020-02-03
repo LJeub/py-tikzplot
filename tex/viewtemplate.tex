@@ -44,6 +44,7 @@ legend pos/outer south/.style={
  /tikz/every even column/.append style={column sep=1em, anchor=mid west}, nodes={text depth=,inner xsep=0pt}}}
 \pgfplotsset{every axis plot/.append style={line join=round, line cap=round}}
 \pgfplotsset{/tikz/mark size={1pt}}
+\pgfplotsset{enlargelimits={true,abs value={1.1*\pgfkeysvalueof{/pgfplots/major tick length}}}}
 
 \newlength{\figwidth}
 \newlength{\figheight}
