@@ -4,6 +4,7 @@ from numbers import Number
 from os import path as _path
 from subprocess import run as _run
 from shutil import copyfile as _copyfile
+from itertools import chain as _chain
 import tempfile
 
 
@@ -507,24 +508,21 @@ class ErrorLegendImage(TikzElement):
 
 
 class ErrorPlot(TikzElement):
-    index = 0
     name = 'ErrorPlot'
+
     def __init__(self, x, y, e, *args, line_options=None, error_options=None, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.line = Plot(x, y, texlabel=texlabel, legendentry=legendentry)
         self.line.options.add(*args, **kwargs)
         if line_options is not None:
             self.line.options.add(line_options)
-        self.error_top = Plot(x, [yi + ei[0] for yi, ei in zip(y, e)], 'forget plot', draw='none', mark='none')
-        self.error_top['name path'] = 'e_top_{}'.format(self.index)
-        self.error_bottom = Plot(x, [yi - ei[1] for yi, ei in zip(y, e)], 'forget plot', draw='none', mark='none')
-        self.error_bottom['name path'] = 'e_bot_{}'.format(self.index)
-        self.error = Fill('e_top_{}'.format(self.index), 'e_bot_{}'.format(self.index), 'forget plot')
+        ex = _chain(x, reversed(x))
+        ey = _chain((yi + ei[0] for yi, ei in zip(y, e)), (yi-ei[1] for yi, ei in reversed(list(zip(y, e)))))
+        self.error = Plot(ex, ey, 'fill', 'forget plot', draw='none', mark='none')
         self.error['fill opacity'] = 0.1
         self.error.options.add(*args, **kwargs)
         self.error.options.add(error_options)
-        self.children = [self.error_top, self.error_bottom, self.error, self.line]
-        ErrorPlot.index += 1
+        self.children = [self.error, self.line]
 
     def __setitem__(self, key, value):
         self.options[key] = value
