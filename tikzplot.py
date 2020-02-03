@@ -345,16 +345,36 @@ class GroupPlot(TikzEnvironment):
         super().__init__(*args, **kwargs)
         self.rows = rows
         self.cols = cols
+        self.xlabel = xlabel
+        self.ylabel = ylabel
 
-        if isinstance(xlabel, _type.Mapping):
-            self.xlabel = self.XLabel(xlabel)
-        else:
-            self.xlabel = self.XLabel(value=xlabel)
+    @property
+    def xlabel(self):
+        return self._xlabel
 
-        if isinstance(ylabel, _type.Mapping):
-            self.ylabel = self.YLabel(ylabel)
+    @xlabel.setter
+    def xlabel(self, value):
+        if isinstance(value, _type.Mapping):
+            kwargs = {key: value for key, value in value if hasattr(self.XLabel, key)}
+            for key in kwargs:
+                del value[key]
+            self._xlabel=self.XLabel(value, **kwargs)
         else:
-            self.ylabel = self.YLabel(value=ylabel)
+            self._xlabel = self.XLabel(value=value)
+
+    @property
+    def ylabel(self):
+        return self._ylabel
+
+    @ylabel.setter
+    def ylabel(self, value):
+        if isinstance(value, _type.Mapping):
+            kwargs = {key: value for key, value in value if hasattr(self.YLabel, key)}
+            for key in kwargs:
+                del value[key]
+            self._ylabel=self.YLabel(value, **kwargs)
+        else:
+            self._ylabel = self.YLabel(value=value)
 
     def nextaxis(self, *args, **kwargs):
         ax = NextPlot(*args, **kwargs)
