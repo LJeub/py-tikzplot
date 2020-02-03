@@ -262,17 +262,23 @@ class NextPlot(Axis, TikzCommand):
 class Node(TikzCommand):
     name = "node"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, value=None, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'value' in self:
-            value = self['value']
-            del self['value']
+        if value is not None:
+            self.value = value
+
+    @property
+    def value(self):
+        if self.children:
+            return self.children[0]
         else:
-            value = None
-        self.value = value
+            return None
+
+    @value.setter
+    def value(self, value):
+        self.children = [EncapsulatedValue(value)]
 
     def write(self, file):
-        self.children = [EncapsulatedValue(self.value)]
         super().write(file)
         file.write(';')
 
