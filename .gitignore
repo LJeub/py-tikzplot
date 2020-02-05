@@ -1,4 +1,5 @@
 tex/*
 !tex/*.tex
 doc/_build/*
+.*
 !doc/_build/html
