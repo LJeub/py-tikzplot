@@ -589,6 +589,7 @@ class EscapeDict(dict):
 
 
 def tikz_escape_value(value):
+    """Use this function to preserve raw text input in the output file, escaping any special latex characters"""
     escape_dict = EscapeDict({
         '&': r'\&',
         '_': r'\_',
