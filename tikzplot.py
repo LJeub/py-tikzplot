@@ -356,10 +356,9 @@ class GroupPlot(TikzEnvironment):
     @xlabel.setter
     def xlabel(self, value):
         if isinstance(value, _type.Mapping):
-            kwargs = {key: value for key, value in value if hasattr(self.XLabel, key)}
-            for key in kwargs:
-                del value[key]
-            self._xlabel=self.XLabel(value, **kwargs)
+            kwargs = {k: v for k, v in value.items() if hasattr(self.XLabel, k)}
+            other_args = {k: v for k, v in value.items() if not hasattr(self.XLabel, k)}
+            self._xlabel = self.XLabel(other_args, **kwargs)
         else:
             self._xlabel = self.XLabel(value=value)
 
@@ -370,10 +369,9 @@ class GroupPlot(TikzEnvironment):
     @ylabel.setter
     def ylabel(self, value):
         if isinstance(value, _type.Mapping):
-            kwargs = {key: value for key, value in value if hasattr(self.YLabel, key)}
-            for key in kwargs:
-                del value[key]
-            self._ylabel=self.YLabel(value, **kwargs)
+            kwargs = {k: v for k, v in value.items() if hasattr(self.YLabel, k)}
+            other_args = {k: v for k, v in value.items() if not hasattr(self.YLabel, k)}
+            self._ylabel = self.YLabel(other_args, **kwargs)
         else:
             self._ylabel = self.YLabel(value=value)
 
