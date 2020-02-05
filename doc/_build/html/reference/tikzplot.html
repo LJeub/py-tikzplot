@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>tikzplot module &#8212; py-tikzplot 0.1.dev40+g376578f.d20200205 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Reference" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-tikzplot">
+<span id="tikzplot-module"></span><h1>tikzplot module<a class="headerlink" href="#module-tikzplot" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tikzplot.BaseElement">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">BaseElement</code><a class="reference internal" href="../_modules/tikzplot.html#BaseElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tikzplot.BaseElement.__del__">
+<code class="sig-name descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseElement.__del__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.BaseElement.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseElement.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.TikzElement">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">TikzElement</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseElement" title="tikzplot.BaseElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseElement</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.TikzElement.name">
+<code class="sig-name descname">name</code><em class="property"> = 'element'</em><a class="headerlink" href="#tikzplot.TikzElement.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzElement.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzElement.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzElement.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzElement.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzElement.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzElement.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzElement.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzElement.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzElement.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzElement.__delitem__">
+<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzElement.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzElement.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.TikzCommand">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">TikzCommand</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.TikzCommand.name">
+<code class="sig-name descname">name</code><em class="property"> = 'cmd'</em><a class="headerlink" href="#tikzplot.TikzCommand.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzCommand.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzCommand.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzCommand.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Ref">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Ref</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Ref.name">
+<code class="sig-name descname">name</code><em class="property"> = 'ref'</em><a class="headerlink" href="#tikzplot.Ref.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.TikzEnvironment">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">TikzEnvironment</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzEnvironment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzEnvironment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.TikzEnvironment.name">
+<code class="sig-name descname">name</code><em class="property"> = 'env'</em><a class="headerlink" href="#tikzplot.TikzEnvironment.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.TikzEnvironment.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#TikzEnvironment.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.TikzEnvironment.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.BaseValue">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">BaseValue</code><a class="reference internal" href="../_modules/tikzplot.html#BaseValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tikzplot.BaseValue.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseValue.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseValue.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Value">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Value</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseValue" title="tikzplot.BaseValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseValue</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.Value.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Value.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Value.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.EncapsulatedValue">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">EncapsulatedValue</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#EncapsulatedValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.EncapsulatedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseValue" title="tikzplot.BaseValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseValue</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.EncapsulatedValue.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#EncapsulatedValue.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.EncapsulatedValue.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.RGB">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">RGB</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#RGB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.RGB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.Value" title="tikzplot.Value"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Value</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.RGB.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#RGB.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.RGB.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.BaseList">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">BaseList</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></p>
+<dl class="method">
+<dt id="tikzplot.BaseList.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseList.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseList.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set self[key] to value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.BaseList.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseList.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseList.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.BaseList.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseList.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseList.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.ValueList">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">ValueList</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ValueList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ValueList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseList" title="tikzplot.BaseList"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseList</span></code></a>, <a class="reference internal" href="#tikzplot.BaseValue" title="tikzplot.BaseValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseValue</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.ValueList.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ValueList.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ValueList.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.OptionList">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">OptionList</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#OptionList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.OptionList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseList" title="tikzplot.BaseList"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseList</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.OptionList.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#OptionList.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.OptionList.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Figure">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Figure</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzEnvironment" title="tikzplot.TikzEnvironment"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzEnvironment</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Figure.name">
+<code class="sig-name descname">name</code><em class="property"> = 'tikzpicture'</em><a class="headerlink" href="#tikzplot.Figure.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tikzplot.Figure.viewdir">
+<code class="sig-name descname">viewdir</code><em class="property"> = '/Users/jeub/Documents/Python/src/tikzplot/tex'</em><a class="headerlink" href="#tikzplot.Figure.viewdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tikzplot.Figure.index">
+<code class="sig-name descname">index</code><em class="property"> = 0</em><a class="headerlink" href="#tikzplot.Figure.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Figure.axis">
+<code class="sig-name descname">axis</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure.axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure.axis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Figure.subplot">
+<code class="sig-name descname">subplot</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure.subplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure.subplot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Figure.save_tikz">
+<code class="sig-name descname">save_tikz</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure.save_tikz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure.save_tikz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Figure.view">
+<code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param">latex='lualatex'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Figure.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">latex='lualatex'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Figure.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Figure.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Axis">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Axis</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzEnvironment" title="tikzplot.TikzEnvironment"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzEnvironment</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Axis.name">
+<code class="sig-name descname">name</code><em class="property"> = 'axis'</em><a class="headerlink" href="#tikzplot.Axis.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.errorplot">
+<code class="sig-name descname">errorplot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">e</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.errorplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.errorplot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.bar">
+<code class="sig-name descname">bar</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.bar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.hbar">
+<code class="sig-name descname">hbar</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.hbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.hbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.violin">
+<code class="sig-name descname">violin</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">*args</em>, <em class="sig-param">location=None</em>, <em class="sig-param">orientation='vertical'</em>, <em class="sig-param">kd_options=None</em>, <em class="sig-param">grid=100</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.violin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.violin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.NextPlot">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">NextPlot</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#NextPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.NextPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.Axis" title="tikzplot.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Axis</span></code></a>, <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.NextPlot.name">
+<code class="sig-name descname">name</code><em class="property"> = 'nextgroupplot'</em><a class="headerlink" href="#tikzplot.NextPlot.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.NextPlot.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#tikzplot.NextPlot.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Node">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Node</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">value=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Node.name">
+<code class="sig-name descname">name</code><em class="property"> = 'node'</em><a class="headerlink" href="#tikzplot.Node.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Node.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#tikzplot.Node.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Node.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Node.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Node.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.GroupPlot">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">GroupPlot</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">rows=1</em>, <em class="sig-param">cols=1</em>, <em class="sig-param">xlabel=None</em>, <em class="sig-param">ylabel=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzEnvironment" title="tikzplot.TikzEnvironment"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzEnvironment</span></code></a></p>
+<dl class="class">
+<dt id="tikzplot.GroupPlot.XLabel">
+<em class="property">class </em><code class="sig-name descname">XLabel</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">position='north'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.XLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.XLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.Node" title="tikzplot.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Node</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.GroupPlot.XLabel.position">
+<em class="property">property </em><code class="sig-name descname">position</code><a class="headerlink" href="#tikzplot.GroupPlot.XLabel.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.XLabel.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.XLabel.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.XLabel.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.GroupPlot.YLabel">
+<em class="property">class </em><code class="sig-name descname">YLabel</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">position='west'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.YLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.YLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.Node" title="tikzplot.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Node</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.GroupPlot.YLabel.position">
+<em class="property">property </em><code class="sig-name descname">position</code><a class="headerlink" href="#tikzplot.GroupPlot.YLabel.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.YLabel.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.YLabel.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.YLabel.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tikzplot.GroupPlot.name">
+<code class="sig-name descname">name</code><em class="property"> = 'groupplot'</em><a class="headerlink" href="#tikzplot.GroupPlot.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.xlabel">
+<em class="property">property </em><code class="sig-name descname">xlabel</code><a class="headerlink" href="#tikzplot.GroupPlot.xlabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.ylabel">
+<em class="property">property </em><code class="sig-name descname">ylabel</code><a class="headerlink" href="#tikzplot.GroupPlot.ylabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.nextaxis">
+<code class="sig-name descname">nextaxis</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.nextaxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.nextaxis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.GroupPlot.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#GroupPlot.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.GroupPlot.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Label">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Label</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Label.name">
+<code class="sig-name descname">name</code><em class="property"> = 'label'</em><a class="headerlink" href="#tikzplot.Label.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Label.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Label.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Label.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Label.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Label.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Label.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.LegendEntry">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">LegendEntry</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#LegendEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.LegendEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.LegendEntry.name">
+<code class="sig-name descname">name</code><em class="property"> = 'addlegendentry'</em><a class="headerlink" href="#tikzplot.LegendEntry.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.LegendEntry.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#LegendEntry.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.LegendEntry.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.LegendEntry.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#LegendEntry.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.LegendEntry.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Plot">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Plot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Plot.name">
+<code class="sig-name descname">name</code><em class="property"> = 'addplot+'</em><a class="headerlink" href="#tikzplot.Plot.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Plot.label">
+<em class="property">property </em><code class="sig-name descname">label</code><a class="headerlink" href="#tikzplot.Plot.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Plot.legend">
+<em class="property">property </em><code class="sig-name descname">legend</code><a class="headerlink" href="#tikzplot.Plot.legend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Plot.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Plot.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Plot.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Fill">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Fill</code><span class="sig-paren">(</span><em class="sig-param">top</em>, <em class="sig-param">bottom</em>, <em class="sig-param">*args</em>, <em class="sig-param">fill_options=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.Fill.name">
+<code class="sig-name descname">name</code><em class="property"> = 'fill between'</em><a class="headerlink" href="#tikzplot.Fill.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Fill.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Fill.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Fill.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.ErrorLegendImage">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">ErrorLegendImage</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorLegendImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorLegendImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.ErrorLegendImage.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorLegendImage.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorLegendImage.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.ErrorPlot">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">ErrorPlot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">e</em>, <em class="sig-param">*args</em>, <em class="sig-param">line_options=None</em>, <em class="sig-param">error_options=None</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="attribute">
+<dt id="tikzplot.ErrorPlot.name">
+<code class="sig-name descname">name</code><em class="property"> = 'ErrorPlot'</em><a class="headerlink" href="#tikzplot.ErrorPlot.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.ErrorPlot.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.ErrorPlot.__delitem__">
+<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.ErrorPlot.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Coordinates">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Coordinates</code><a class="reference internal" href="../_modules/tikzplot.html#Coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.BaseElement" title="tikzplot.BaseElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseElement</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.Coordinates.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinates.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinates.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Coordinate">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Coordinate</code><a class="reference internal" href="../_modules/tikzplot.html#Coordinate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="tikzplot.Coordinate.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinate.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Coordinate2d">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Coordinate2d</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinate2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.Coordinate" title="tikzplot.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Coordinate</span></code></a>, <a class="reference internal" href="#tikzplot.BaseValue" title="tikzplot.BaseValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseValue</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.Coordinate2d.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinate2d.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate2d.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="tikzplot.as_tikz_value">
+<code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">as_tikz_value</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#as_tikz_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.as_tikz_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.EscapeDict">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">EscapeDict</code><a class="reference internal" href="../_modules/tikzplot.html#EscapeDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.EscapeDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dl class="method">
+<dt id="tikzplot.EscapeDict.__missing__">
+<code class="sig-name descname">__missing__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#EscapeDict.__missing__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.EscapeDict.__missing__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="tikzplot.tikz_escape_value">
+<code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">tikz_escape_value</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#tikz_escape_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.tikz_escape_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this function to preserve raw text input in the output file, escaping any special latex characters</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">py-tikzplot</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tikzplot module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Reference</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">Reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Lucas G. S. Jeub.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/reference/tikzplot.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
