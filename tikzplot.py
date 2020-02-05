@@ -6,6 +6,15 @@ from subprocess import run as _run
 from shutil import copyfile as _copyfile
 from itertools import chain as _chain
 import tempfile
+from pkg_resources import get_distribution, DistributionNotFound
+
+
+# define __version__
+try:
+    __version__ = get_distribution(__name__).version
+except DistributionNotFound:
+    # package is not installed
+    pass
 
 
 class BaseElement:
