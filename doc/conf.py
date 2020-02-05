@@ -13,6 +13,7 @@
 import os
 import sys
 import tikzplot
+import sphinx_rtd_theme
 sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -37,6 +38,7 @@ release = tikzplot.__version__
 # ones.
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.viewcode',
+              'sphinx.ext.githubpages',
               'sphinx_rtd_theme',
               ]
 
@@ -45,7 +47,7 @@ autodoc_default_options = {
     'special-members': True,
     'undoc-members': True,
     'show-inheritence': True,
-    'exclude-members': '__init__, __module__, __weakref__, __dict__, __slots__, __abstractmethods__, __repr__'
+    'exclude-members': '__init__, __module__, __weakref__, __dict__, __slots__, __abstractmethods__, __repr__',
 }
 
 autoclass_content = 'both'
@@ -64,7 +66,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
