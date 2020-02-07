@@ -280,6 +280,48 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+    def imshow(self, matrix, *args, colormodel=None, x=None, y=None, **kwargs):
+        if x is None:
+            x = range(len(matrix[0]))
+        elif len(x) != len(matrix[0]):
+            if len(x) == 2:
+                step = (x[1]-x[0]) / len(matrix[0])
+                x = [x[0] + i * step for i in range(len(matrix[0]))]
+            else:
+                raise ValueError("Provided x value does not match matrix size")
+
+        if y is None:
+            y = range(len(matrix))
+        elif len(y) != len(matrix):
+            if len(y) == 2:
+                step = (y[1]-y[0]) / len(matrix)
+                y = [y[0] + i * step for i in range(len(matrix))]
+            else:
+                raise ValueError("Provided y value does not match matrix size")
+
+        x_list = []
+        y_list = []
+        m_list = []
+
+        for yi, row in zip(y, matrix):
+            for xi, m in zip(x, row):
+                x_list.append(xi)
+                y_list.append(yi)
+                m_list.append(m)
+
+        if colormodel is not None:
+            m_list = ["{}={}".format(colormodel, mv) for mv in m_list]
+            opts = {"point meta": "explicit symbolic", "mesh/color input": "explicit"}
+        elif isinstance(matrix[0][0], Number):
+            opts = {"point meta": "explicit"}
+        else:
+            opts = {"point meta": "explicit symbolic", "mesh/color input": "explicit"}
+        opts['mesh/cols'] = len(matrix[0])
+
+        p = Plot(x_list, y_list, "matrix plot", "no marks", opts, *args, meta=m_list, **kwargs)
+        self.children.append(p)
+        return p
+
 
 class NextPlot(Axis, TikzCommand):
     name = 'nextgroupplot'
