@@ -40,10 +40,6 @@ class BaseElement:
     def __init__(self):
         self.children = []
 
-    def __del__(self):
-        for child in self.children:
-            del(child)
-
     def write(self, file):
         for child in self.children:
             child.write(file)
