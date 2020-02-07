@@ -18,6 +18,20 @@ except DistributionNotFound:
 
 
 default_viewdir = Path(__file__).resolve().parent / 'tex'
+
+
+def clean_viewdir():
+    """Remove all temporal folders form default viewdir.
+
+    Note that this is not thread-safe and will delete files for currently open figures!
+    """
+    for f in default_viewdir.iterdir():
+        if f.is_dir():
+            for fi in f.iterdir():
+                fi.unlink()
+            f.rmdir()
+
+
 class BaseElement:
     def __init__(self):
         self.children = []
