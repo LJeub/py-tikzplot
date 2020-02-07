@@ -8,6 +8,9 @@ from itertools import chain as _chain
 from itertools import repeat as _repeat
 import tempfile
 from pkg_resources import get_distribution, DistributionNotFound
+from sklearn.neighbors import KernelDensity
+from statistics import stdev
+from math import exp
 
 
 # define __version__
@@ -319,6 +322,28 @@ class Axis(TikzEnvironment):
         opts['mesh/cols'] = len(matrix[0])
 
         p = Plot(x_list, y_list, "matrix plot", "no marks", opts, *args, meta=m_list, **kwargs)
+
+    def violin(self, data,  *args, location=None, orientation='vertical', kd_options=None, grid=100,
+               width=0.8, expand_range=3, legendentry=None, texlabel=None, **kwargs):
+        kd_params = {}
+        if kd_options is not None:
+            kd_params.update(kd_options)
+        kde = KernelDensity(**kd_params)
+        data = list(data)
+        if location is None:
+            location = sum(isinstance(c, Violin) for c in self.children)
+
+        sf = 0.5*width
+        if not 'bw' in kd_params:
+            kde.bandwidth = 1.06*stdev(data) * len(data)**(-1/5)
+        kde.fit([[di] for di in data])
+        step = ((max(data) + expand_range*kde.bandwidth) - (min(data) - expand_range*kde.bandwidth)) / grid
+        x = [min(data)-expand_range*kde.bandwidth + i*step for i in range(grid)]
+        y = kde.score_samples([[xi] for xi in x])
+        my = max(y)
+        y[:] = [exp(v-my) * sf for v in y]
+        p = Violin(x, y, *args, location=location, orientation=orientation, line_options=None, violin_options=None,
+             texlabel=texlabel, legendentry=legendentry, **kwargs)
         self.children.append(p)
         return p
 
@@ -607,6 +632,72 @@ class ErrorPlot(TikzElement):
         self.line['legend image code/.code'] = ErrorLegendImage(self.error.options)
         super().write(file)
         
+
+class Violin(TikzElement):
+    class _LegendImage(BaseElement):
+        def __init__(self, violin, orientation):
+            super().__init__()
+            self.violin = violin
+            self.orientation = orientation
+
+        def write(self, file):
+            violin_opts = OptionList(self.violin.violin.options)
+            del violin_opts['forget plot']
+            violin_opts['smooth'] = None
+
+            file.write(r'{\path')
+            violin_opts.write(file)
+            if self.orientation == 'vertical':
+                file.write(
+                    r' plot coordinates {(0cm, -0.25cm) (-0.1cm, 0cm) (-0.2cm, 0.15cm) (0cm, 0.25cm) (0.2cm, 0.15cm) (0.1cm, 0cm) (0cm, -0.25cm)};')
+                file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,-0.3cm) (0cm,0cm) (0cm,0.3cm)}; }')
+            elif self.orientation == 'horizontal':
+                file.write(
+                    r' plot coordinates {(0cm, 0cm) (0.25cm, -0.1cm) (0.4cm, -0.2cm) (0.55cm, 0cm) (0.4cm, 0.2cm) (0.25cm, 0.1cm) (0cm, 0cm)};')
+                file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
+
+    def __init__(self, x, pdf, *args, location=0, orientation='vertical', line_options=None, violin_options=None,
+                 texlabel=None, legendentry=None, **kwargs):
+        y = [location-p for p in pdf] + [location + p for p in pdf[-1::-1]]
+        x_min = min(x)
+        x_max = max(x)
+        ev = 0.1 * (x_max-x_min)
+        if orientation == 'vertical':
+            self.violin = Plot(y, x + x[-1::-1])
+            self.line = Plot([location]*2, [x_min-ev, x_max+ev],
+                             texlabel=texlabel, legendentry=legendentry)
+        elif orientation == 'horizontal':
+            self.violin = Plot(x + x[-1::-1], y)
+            self.line = Plot([x_min - ev, x_max + ev], [location] * 2,
+                             texlabel=texlabel, legendentry=legendentry)
+        else:
+            raise ValueError('Unknown orientation {}'.format(orientation))
+        self.line.options.add('no marks', draw='black')
+        self.violin.options.add('fill', 'no marks', 'forget plot', draw='none')
+        super().__init__(*args, **kwargs)
+        self.violin.options.add(violin_options)
+        self.children.append(self.violin)
+        self.children.append(self.line)
+        self._legend = self._LegendImage(self, orientation)
+
+    def __setitem__(self, key, value):
+        self.options[key] = value
+        self.line[key] = value
+        self.violin[key] = value
+
+    def __delitem__(self, key):
+        if key in self.options:
+            del(self.options[key])
+            del(self.line[key])
+            del(self.violin[key])
+
+    def write(self, file):
+        self.line['legend image code/.code'] = self._legend
+        super().write(file)
+
+
+
+
 
 class Coordinates(BaseElement):
     def write(self, file):
