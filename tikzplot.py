@@ -5,6 +5,7 @@ from pathlib import Path
 from subprocess import run as _run
 from shutil import copyfile as _copyfile
 from itertools import chain as _chain
+from itertools import repeat as _repeat
 import tempfile
 from pkg_resources import get_distribution, DistributionNotFound
 
@@ -467,15 +468,17 @@ class LegendEntry(TikzCommand):
 class Plot(TikzCommand):
     name = "addplot+"
 
-    def __init__(self, x, y, *args, texlabel=None, legendentry=None, **kwargs):
+    def __init__(self, x, y, *args, meta=None, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
         if 'mark options' in self.options:
             old_marks = self['mark options']
             self['mark options'] = OptionList({'solid': None, 'fill opacity': 1})
             self['mark options'].add(old_marks)
         coords = Coordinates()
-        for xi, yi in zip(x, y):
-            coords.children.append(Coordinate2d(xi, yi))
+        if not isinstance(meta, _type.Iterable):
+            meta = _repeat(meta)
+        for xi, yi, mi in zip(x, y, meta):
+            coords.children.append(Coordinate2d(xi, yi, meta=mi))
         self.children.append(coords)
         self._label = Label()
         self._legend = LegendEntry()
@@ -577,13 +580,17 @@ class Coordinate:
 
 
 class Coordinate2d(Coordinate, BaseValue):
-    def __init__(self,x, y):
+    def __init__(self, x, y, meta=None):
         super().__init__()
         self.x = x
         self.y = y
+        self.meta = meta
 
     def write(self, file):
-        file.write("({}, {})\n".format(self.x, self.y))
+        file.write("({}, {})".format(self.x, self.y))
+        if self.meta is not None:
+            file.write(" [{}]".format(self.meta))
+        file.write("\n")
 
 
 def as_tikz_value(value):
