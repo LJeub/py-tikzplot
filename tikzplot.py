@@ -676,20 +676,16 @@ class Violin(TikzElement):
         self.children.append(self.line)
         self._legend = self._LegendImage(self, orientation)
 
-    def __setitem__(self, key, value):
-        self.options[key] = value
-        self.line[key] = value
-        self.violin[key] = value
-
-    def __delitem__(self, key):
-        if key in self.options:
-            del(self.options[key])
-            del(self.line[key])
-            del(self.violin[key])
-
     def write(self, file):
-        self.line['legend image code/.code'] = self._legend
+        old_line_opts = self.line.options
+        old_violin_opts = self.violin.options
+        line_opts = OptionList({'legend image code/.code': self._legend}, self.options, old_line_opts)
+        violin_opts = OptionList(self.options, old_violin_opts)
+        self.violin.options = violin_opts
+        self.line.options = line_opts
         super().write(file)
+        self.line.options = old_line_opts
+        self.violin.options = old_violin_opts
 
 
 
