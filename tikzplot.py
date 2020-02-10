@@ -644,11 +644,11 @@ class Violin(TikzElement):
             violin_opts.write(file)
             if self.orientation == 'vertical':
                 file.write(
-                    r' plot coordinates {(0cm, -0.25cm) (-0.1cm, 0cm) (-0.2cm, 0.15cm) (0cm, 0.25cm) (0.2cm, 0.15cm) (0.1cm, 0cm) (0cm, -0.25cm)};')
+                    r' plot coordinates {(0.0cm, 0.25cm) (0.04cm, 0.19cm) (0.1cm, 0.12cm) (0.13cm, 0.06cm) (0.09cm, -0.03cm) (0.0cm, -0.25cm) (-0.09cm, -0.03cm) (-0.13cm, 0.06cm) (-0.1cm, 0.12cm) (-0.04cm, 0.19cm)};')
                 file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,-0.3cm) (0cm,0cm) (0cm,0.3cm)}; }')
             elif self.orientation == 'horizontal':
                 file.write(
-                    r' plot coordinates {(0cm, 0cm) (0.25cm, -0.1cm) (0.4cm, -0.2cm) (0.55cm, 0cm) (0.4cm, 0.2cm) (0.25cm, 0.1cm) (0cm, 0cm)};')
+                    r' plot coordinates {(0.55cm, 0.0cm) (0.33cm, 0.09cm) (0.24cm, 0.13cm) (0.18cm, 0.1cm) (0.11cm, 0.04cm) (0.05cm, 0.0cm) (0.11cm, -0.04cm) (0.18cm, -0.1cm) (0.24cm, -0.13cm) (0.33cm, -0.09cm)};')
                 file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
 
     def __init__(self, x, pdf, *args, location=0, orientation='vertical', line_options=None, violin_options=None,
