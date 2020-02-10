@@ -667,10 +667,11 @@ class Violin(TikzElement):
                              texlabel=texlabel, legendentry=legendentry)
         else:
             raise ValueError('Unknown orientation {}'.format(orientation))
-        self.line.options.add('no marks', draw='black')
+        self.line.options.add('no marks', {'line width': '0.4pt', 'draw': 'black'})
         self.violin.options.add('fill', 'no marks', 'forget plot', draw='none')
         super().__init__(*args, **kwargs)
         self.violin.options.add(violin_options)
+        self.line.options.add(line_options)
         self.children.append(self.violin)
         self.children.append(self.line)
         self._legend = self._LegendImage(self, orientation)
