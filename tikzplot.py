@@ -631,27 +631,31 @@ class Violin(TikzElement):
             self.orientation = orientation
 
         def write(self, file):
-            violin_opts = OptionList(self.violin.violin.options)
-            del violin_opts['forget plot']
-            violin_opts['smooth'] = None
+            line_opts = OptionList(self.violin.line.options)
+            if 'forget plot' in line_opts:
+                del line_opts['forget plot']
+            line_opts.add({'mark repeat': 2, 'mark phase': 2})
 
-            file.write(r'{\path')
-            violin_opts.write(file)
+            file.write(r'{\path[smooth]')
             if self.orientation == 'vertical':
                 file.write(
-                    r' plot coordinates {(0.0cm, 0.25cm) (0.04cm, 0.19cm) (0.1cm, 0.12cm) (0.13cm, 0.06cm) (0.09cm, -0.03cm) (0.0cm, -0.25cm) (-0.09cm, -0.03cm) (-0.13cm, 0.06cm) (-0.1cm, 0.12cm) (-0.04cm, 0.19cm)};')
-                file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,-0.3cm) (0cm,0cm) (0cm,0.3cm)}; }')
+                    r' plot coordinates {(0.0cm, 0.25cm) (0.2cm, 0.125cm) (0.1cm, 0.0cm) (0.0cm, -0.25cm) (-0.1cm, 0.0cm) (-0.2cm, 0.125cm) (0.0cm, 0.25cm)};')
+                file.write(r'\path')
+                line_opts.write(file)
+                file.write(r' plot coordinates {(0cm,-0.3cm) (0cm,0cm) (0cm,0.3cm)}; }')
             elif self.orientation == 'horizontal':
                 file.write(
-                    r' plot coordinates {(0.55cm, 0.0cm) (0.33cm, 0.09cm) (0.24cm, 0.13cm) (0.18cm, 0.1cm) (0.11cm, 0.04cm) (0.05cm, 0.0cm) (0.11cm, -0.04cm) (0.18cm, -0.1cm) (0.24cm, -0.13cm) (0.33cm, -0.09cm)};')
-                file.write(r'\path[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
+                    r' plot coordinates {(0.05cm, 0.0cm) (0.175cm, 0.2cm) (0.3cm, 0.1cm) (0.55cm, 0.0cm) (0.3cm, -0.1cm) (0.175cm, -0.2cm) (0.05cm, 0.0cm)};')
+                file.write(r'\path')
+                line_opts.write(file)
+                file.write(r' plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
 
     def __init__(self, x, pdf, *args, location=0, orientation='vertical', line_options=None, violin_options=None,
                  texlabel=None, legendentry=None, **kwargs):
         y = [location-p for p in pdf] + [location + p for p in pdf[-1::-1]]
         x_min = min(x)
         x_max = max(x)
-        ev = 0.1 * (x_max-x_min)
+        ev = 0.05 * (x_max-x_min)
         if orientation == 'vertical':
             self.violin = Plot(y, x + x[-1::-1])
             self.line = Plot([location]*2, [x_min-ev, x_max+ev],
@@ -662,8 +666,8 @@ class Violin(TikzElement):
                              texlabel=texlabel, legendentry=legendentry)
         else:
             raise ValueError('Unknown orientation {}'.format(orientation))
-        self.line.options.add('no marks', {'line width': '0.4pt', 'draw': 'black'})
-        self.violin.options.add('fill', 'no marks', 'forget plot', draw='none')
+        self.line.options.add('thin', 'no marks', 'forget plot', draw='black')
+        self.violin.options.add('fill', 'no marks', draw='none')
         super().__init__(*args, **kwargs)
         self.violin.options.add(violin_options)
         self.line.options.add(line_options)
@@ -674,8 +678,8 @@ class Violin(TikzElement):
     def write(self, file):
         old_line_opts = self.line.options
         old_violin_opts = self.violin.options
-        self.line.options = OptionList({'legend image code/.code': self._legend}, self.options, old_line_opts)
-        self.violin.options = OptionList(self.options, old_violin_opts)
+        self.line.options = OptionList(self.options, old_line_opts)
+        self.violin.options = OptionList({'legend image code/.code': self._legend}, self.options, old_violin_opts)
         super().write(file)
         self.line.options = old_line_opts
         self.violin.options = old_violin_opts
