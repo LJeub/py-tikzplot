@@ -156,15 +156,17 @@
             
   <div class="section" id="module-tikzplot">
 <span id="tikzplot-module"></span><h1>tikzplot module<a class="headerlink" href="#module-tikzplot" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="tikzplot.clean_viewdir">
+<code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">clean_viewdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#clean_viewdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.clean_viewdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all temporal folders form default viewdir.</p>
+<p>Note that this is not thread-safe and will delete files for currently open figures!</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="tikzplot.BaseElement">
 <em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">BaseElement</code><a class="reference internal" href="../_modules/tikzplot.html#BaseElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="tikzplot.BaseElement.__del__">
-<code class="sig-name descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseElement.__del__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement.__del__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="tikzplot.BaseElement.write">
 <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#BaseElement.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.BaseElement.write" title="Permalink to this definition">¶</a></dt>
@@ -345,7 +347,7 @@
 
 <dl class="attribute">
 <dt id="tikzplot.Figure.viewdir">
-<code class="sig-name descname">viewdir</code><em class="property"> = '/Users/jeub/Documents/Python/src/tikzplot/tex'</em><a class="headerlink" href="#tikzplot.Figure.viewdir" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">viewdir</code><em class="property"> = PosixPath('/Users/jeub/Documents/Python/src/tikzplot/tex')</em><a class="headerlink" href="#tikzplot.Figure.viewdir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -407,6 +409,16 @@
 <dl class="method">
 <dt id="tikzplot.Axis.hbar">
 <code class="sig-name descname">hbar</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.hbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.hbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.imshow">
+<code class="sig-name descname">imshow</code><span class="sig-paren">(</span><em class="sig-param">matrix</em>, <em class="sig-param">*args</em>, <em class="sig-param">colormodel=None</em>, <em class="sig-param">x=None</em>, <em class="sig-param">y=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.imshow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.imshow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tikzplot.Axis.violin">
+<code class="sig-name descname">violin</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">*args</em>, <em class="sig-param">location=None</em>, <em class="sig-param">orientation='vertical'</em>, <em class="sig-param">kd_options=None</em>, <em class="sig-param">grid=100</em>, <em class="sig-param">width=0.8</em>, <em class="sig-param">expand_range=3</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Axis.violin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Axis.violin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -555,7 +567,7 @@
 
 <dl class="class">
 <dt id="tikzplot.Plot">
-<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Plot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Plot" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Plot</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">*args</em>, <em class="sig-param">meta=None</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzCommand" title="tikzplot.TikzCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzCommand</span></code></a></p>
 <dl class="attribute">
 <dt id="tikzplot.Plot.name">
@@ -616,18 +628,19 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="tikzplot.ErrorPlot.__setitem__">
-<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tikzplot.ErrorPlot.__delitem__">
-<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.__delitem__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="tikzplot.ErrorPlot.write">
 <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#ErrorPlot.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.ErrorPlot.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tikzplot.Violin">
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Violin</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">pdf</em>, <em class="sig-param">*args</em>, <em class="sig-param">location=0</em>, <em class="sig-param">orientation='vertical'</em>, <em class="sig-param">line_options=None</em>, <em class="sig-param">violin_options=None</em>, <em class="sig-param">texlabel=None</em>, <em class="sig-param">legendentry=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Violin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Violin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tikzplot.TikzElement" title="tikzplot.TikzElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.TikzElement</span></code></a></p>
+<dl class="method">
+<dt id="tikzplot.Violin.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Violin.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Violin.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -656,7 +669,7 @@
 
 <dl class="class">
 <dt id="tikzplot.Coordinate2d">
-<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Coordinate2d</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinate2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate2d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tikzplot.</code><code class="sig-name descname">Coordinate2d</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">meta=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tikzplot.html#Coordinate2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tikzplot.Coordinate2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#tikzplot.Coordinate" title="tikzplot.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.Coordinate</span></code></a>, <a class="reference internal" href="#tikzplot.BaseValue" title="tikzplot.BaseValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">tikzplot.BaseValue</span></code></a></p>
 <dl class="method">
 <dt id="tikzplot.Coordinate2d.write">
