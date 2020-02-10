@@ -612,20 +612,15 @@ class ErrorPlot(TikzElement):
         self.error.options.add(error_options)
         self.children = [self.error, self.line]
 
-    def __setitem__(self, key, value):
-        self.options[key] = value
-        self.line[key] = value
-        self.error[key] = value
-
-    def __delitem__(self, key):
-        if key in self.options:
-            del(self.options[key])
-            del(self.line[key])
-            del(self.error[key])
-
     def write(self, file):
-        self.line['legend image code/.code'] = ErrorLegendImage(self.error.options)
+        old_line_opts = self.line.options
+        old_error_opts = self.error.options
+        self.line.options = OptionList({'legend image code/.code': ErrorLegendImage(self.error.options)},
+                                       self.options, old_line_opts)
+        self.error.options = OptionList(self.options, old_error_opts)
         super().write(file)
+        self.line.options = old_line_opts
+        self.error.options = old_error_opts
         
 
 class Violin(TikzElement):
@@ -679,16 +674,11 @@ class Violin(TikzElement):
     def write(self, file):
         old_line_opts = self.line.options
         old_violin_opts = self.violin.options
-        line_opts = OptionList({'legend image code/.code': self._legend}, self.options, old_line_opts)
-        violin_opts = OptionList(self.options, old_violin_opts)
-        self.violin.options = violin_opts
-        self.line.options = line_opts
+        self.line.options = OptionList({'legend image code/.code': self._legend}, self.options, old_line_opts)
+        self.violin.options = OptionList(self.options, old_violin_opts)
         super().write(file)
         self.line.options = old_line_opts
         self.violin.options = old_violin_opts
-
-
-
 
 
 class Coordinates(BaseElement):
