@@ -321,17 +321,16 @@ class Axis(TikzEnvironment):
 
     def violin(self, data,  *args, location=None, orientation='vertical', kd_options=None, grid=100,
                width=0.8, expand_range=3, legendentry=None, texlabel=None, **kwargs):
-        kd_params = {}
+        data = list(data)
+        kd_params = {'bandwidth': 1.06*stdev(data) * len(data)**(-1/5)}
         if kd_options is not None:
             kd_params.update(kd_options)
         kde = KernelDensity(**kd_params)
-        data = list(data)
+
         if location is None:
             location = sum(isinstance(c, Violin) for c in self.children)
 
         sf = 0.5*width
-        if not 'bw' in kd_params:
-            kde.bandwidth = 1.06*stdev(data) * len(data)**(-1/5)
         kde.fit([[di] for di in data])
         step = ((max(data) + expand_range*kde.bandwidth) - (min(data) - expand_range*kde.bandwidth)) / grid
         x = [min(data)-expand_range*kde.bandwidth + i*step for i in range(grid)]
