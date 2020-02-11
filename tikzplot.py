@@ -624,6 +624,8 @@ class ErrorPlot(TikzElement):
         
 
 class Violin(TikzElement):
+    name = 'Violin'
+
     class _LegendImage(BaseElement):
         def __init__(self, violin, orientation):
             super().__init__()
@@ -634,9 +636,9 @@ class Violin(TikzElement):
             line_opts = OptionList(self.violin.line.options)
             if 'forget plot' in line_opts:
                 del line_opts['forget plot']
-            line_opts.add({'mark repeat': 2, 'mark phase': 2})
+            line_opts.add('/pgfplots/.cd', {'mark repeat': 2, 'mark phase': 2})
 
-            file.write(r'{\path[smooth]')
+            file.write(r'{\path[/pgfplots/.cd, smooth]')
             if self.orientation == 'vertical':
                 file.write(
                     r' plot coordinates {(0.0cm, 0.25cm) (0.2cm, 0.125cm) (0.1cm, 0.0cm) (0.0cm, -0.25cm) (-0.1cm, 0.0cm) (-0.2cm, 0.125cm) (0.0cm, 0.25cm)};')
