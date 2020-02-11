@@ -318,6 +318,7 @@ class Axis(TikzEnvironment):
         opts['mesh/cols'] = len(matrix[0])
 
         p = Plot(x_list, y_list, "matrix plot", "no marks", opts, *args, meta=m_list, **kwargs)
+        self.children.append(p)
 
     def violin(self, data,  *args, location=None, orientation='vertical', kd_options=None, grid=100,
                width=0.8, expand_range=3, legendentry=None, texlabel=None, **kwargs):
