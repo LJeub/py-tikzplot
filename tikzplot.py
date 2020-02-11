@@ -584,19 +584,19 @@ class Fill(TikzElement):
         file.write(';\n')
 
 
-class ErrorLegendImage(TikzElement):
-    def write(self, file):
-        del(self['forget plot'])
-        if 'draw' not in self.options:
-            self['draw'] = 'none'
-        file.write(r'{\fill')
-        self.options.write(file)
-        file.write('(0cm, -0.1cm) rectangle(0.6cm, 0.1cm);')
-        file.write(r'\draw[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
-
-
 class ErrorPlot(TikzElement):
     name = 'ErrorPlot'
+
+    class _LegendImage(TikzElement):
+        def write(self, file):
+            if 'forget plot' in self:
+                del (self['forget plot'])
+            if 'draw' not in self.options:
+                self['draw'] = 'none'
+            file.write(r'{\fill')
+            self.options.write(file)
+            file.write('(0cm, -0.1cm) rectangle(0.6cm, 0.1cm);')
+            file.write(r'\draw[mark repeat=2,mark phase=2] plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
 
     def __init__(self, x, y, e, *args, line_options=None, error_options=None, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -615,7 +615,7 @@ class ErrorPlot(TikzElement):
     def write(self, file):
         old_line_opts = self.line.options
         old_error_opts = self.error.options
-        self.line.options = OptionList({'legend image code/.code': ErrorLegendImage(self.error.options)},
+        self.line.options = OptionList({'legend image code/.code': self._LegendImage(self.error.options)},
                                        self.options, old_line_opts)
         self.error.options = OptionList(self.options, old_error_opts)
         super().write(file)
