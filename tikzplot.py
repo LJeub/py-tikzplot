@@ -349,6 +349,11 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+    def graphic(self, filename, graphic_options, *args, **kwargs):
+        p = Plot(Graphic(filename, graphic_options), *args, **kwargs)
+        self.children.append(p)
+        return p
+
 
 class NextPlot(Axis, TikzCommand):
     name = 'nextgroupplot'
@@ -574,6 +579,20 @@ class Plot(TikzCommand):
 
 class CPlot(Plot):
     name = "addplot+"
+
+
+class Graphic(TikzElement):
+    name = "graphics"
+    def __init__(self, filename, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filename = filename
+
+    def write(self, file):
+        file.write(" ")
+        file.write(self.name)
+        self.options.write(file)
+        file.write('{"' + str(self.filename) + '"};')
+
 
 class Fill(TikzElement):
     name = 'fill between'
