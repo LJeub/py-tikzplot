@@ -13,6 +13,8 @@ from statistics import stdev
 from math import exp
 
 
+_ext_file_counter = _coll.Counter()
+
 # define __version__
 try:
     __version__ = get_distribution(__name__).version
@@ -354,6 +356,11 @@ class Axis(TikzEnvironment):
         self.children.append(p)
         return p
 
+    def mpl_contents(self, axis, *args, filename=None, dpi=None, **kwargs):
+        p = Plot(MPLAxisContents(axis, filename=filename, dpi=dpi), *args, **kwargs)
+        self.children.append(p)
+        return p
+
 
 class NextPlot(Axis, TikzCommand):
     name = 'nextgroupplot'
@@ -592,6 +599,41 @@ class Graphic(TikzElement):
         file.write(self.name)
         self.options.write(file)
         file.write('{"' + str(self.filename) + '"};')
+
+
+class MPLAxisContents(Graphic):
+    def __init__(self, axis, *args, filename=None, dpi=None, **kwargs):
+        super().__init__(filename=filename, *args, **kwargs)
+        self.axis = axis
+        self.dpi = dpi
+
+    def write(self, file):
+        xmin, xmax = self.axis.get_xlim()
+        ymin, ymax = self.axis.get_ylim()
+        self['xmin'] = xmin
+        self['xmax'] = xmax
+        self['ymin'] = ymin
+        self['ymax'] = ymax
+        old_fname = self.filename
+        if self.filename is None:
+            if hasattr(file, 'name'):
+                fname = Path(file.name).resolve()
+                filename = fname.with_name("{}_data{}.png".format(fname.stem, _ext_file_counter[fname]))
+                self.filename = filename.name
+            else:
+                raise RuntimeError("Need explicit file name when writing to file-like object without name")
+        else:
+            filename = Path(self.filename)
+
+        ax_state = self.axis.axison
+        if ax_state:
+            self.axis.set_axis_off()
+        extent = self.axis.get_window_extent().transformed(self.axis.figure.dpi_scale_trans.inverted())
+        self.axis.figure.savefig(filename, bbox_inches=extent, transparent=True, dpi=self.dpi)
+        super().write(file)
+        self.filename = old_fname
+        if ax_state:
+            self.axis.set_axis_on()
 
 
 class Fill(TikzElement):
