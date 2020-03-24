@@ -10,8 +10,15 @@
 % any customization goes here
 \pgfplotsset{colormap={tableau}{HTML=(1F77B4) HTML=(FF7F0E) HTML=(2CA02C) HTML=(D62728) HTML=(9467BD) HTML=(8C564B)%
 HTML=(E377C2) HTML=(7F7F7F) HTML=(BCBD22) HTML=(17BECF)}}
+\pgfplotsset{colormap/RdBu}
+\pgfplotsset{colormap/Reds}
+\pgfplotsset{colormap={increasing}{of colormap={Reds}}}
+\pgfplotsset{colormap={decreasing}{indices of colormap={\pgfplotscolormaplastindexof{Reds},...,0 of Reds}}}
+\pgfplotsset{colormap={diverging}{indices of colormap={\pgfplotscolormaplastindexof{RdBu},...,0 of RdBu}}}
+\pgfplotsset{colormap={diverging-reverse}{of colormap={RdBu}}}
 \pgfplotsset{colormap name=viridis}
 \pgfplotsset{mark list fill={.}}
+\pgfplotsset{scatter/use mapped color={mapped color}}
 \pgfplotscreateplotcyclelist{mymarks}{
     every mark/.append style={solid,fill=\pgfplotsmarklistfill, scale=1.1},mark=*\\
     every mark/.append style={solid, scale=1.7},mark=x\\
@@ -40,7 +47,7 @@ legend pos/outer south/.style={
 }
 \pgfplotsset{every axis/.append style={font=\footnotesize, legend pos=outer south, legend columns=-1, scale only axis}}
 \pgfplotsset{every axis label/.append style={font=\footnotesize, inner sep=1pt}}
-\pgfplotsset{every tick label/.append style={font=\scriptsize}}
+\pgfplotsset{every tick label/.append style={font=\scriptsize, /pgf/number format/fixed}}
 \pgfplotsset{every x tick label/.append style={inner xsep=0.1pt}}
 \pgfplotsset{every y tick label/.append style={inner ysep=0.1pt}}
 \pgfplotsset{every colorbar/.append style={width=0.2cm}}
