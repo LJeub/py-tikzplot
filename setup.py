@@ -9,5 +9,5 @@ setup(
     python_requires='>=3',
     install_requires=[
     ],
-    py_modules='tikzplot',
+    py_modules=['tikzplot'],
 )
