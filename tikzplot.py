@@ -259,8 +259,8 @@ class Figure(TikzEnvironment):
 class Axis(TikzEnvironment):
     name = "axis"
 
-    def plot(self, x, y, *args, **kwargs):
-        p = Plot(x, y, *args, **kwargs)
+    def plot(self, x, y, *args, meta=None, error=None, **kwargs):
+        p = CPlot(Coordinates(zip(x, y), error=error, meta=meta), *args, **kwargs)
         self.children.append(p)
         return p
 
@@ -270,13 +270,11 @@ class Axis(TikzEnvironment):
         return p
 
     def bar(self, x, y, *args, **kwargs):
-        p = Plot(x, y, 'ybar', 'ybar legend', 'fill', *args, mark='none', **kwargs)
-        self.children.append(p)
+        p = self.plot(x, y, 'ybar', 'ybar legend', 'fill', *args, mark='none', **kwargs)
         return p
 
     def hbar(self, x, y, *args, **kwargs):
-        p = Plot(x, y, 'xbar', 'xbar legend', 'fill', *args, mark='none', **kwargs)
-        self.children.append(p)
+        p = self.plot(x, y, 'xbar', 'xbar legend', 'fill', *args, mark='none', **kwargs)
         return p
 
     def imshow(self, matrix, *args, colormodel=None, x=None, y=None, **kwargs):
@@ -316,8 +314,8 @@ class Axis(TikzEnvironment):
         else:
             opts = {"point meta": "explicit symbolic", "mesh/color input": "explicit"}
         opts['mesh/cols'] = len(matrix[0])
-
-        p = Plot(x_list, y_list, "matrix plot", "no marks", opts, *args, meta=m_list, **kwargs)
+        opts['line join'] = 'miter'
+        p = Plot(Coordinates(zip(x_list, y_list), meta=m_list), "matrix plot", "no marks", opts, *args, **kwargs)
         self.children.append(p)
 
     def violin(self, data,  *args, location=None, orientation='vertical', kd_options=None, grid=100,
@@ -529,20 +527,16 @@ class LegendEntry(TikzCommand):
 
 
 class Plot(TikzCommand):
-    name = "addplot+"
+    name = "addplot"
 
-    def __init__(self, x, y, *args, meta=None, texlabel=None, legendentry=None, **kwargs):
+    def __init__(self, plot_data, *args, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
         if 'mark options' in self.options:
             old_marks = self['mark options']
             self['mark options'] = OptionList({'solid': None, 'fill opacity': 1})
             self['mark options'].add(old_marks)
-        coords = Coordinates()
-        if not isinstance(meta, _type.Iterable):
-            meta = _repeat(meta)
-        for xi, yi, mi in zip(x, y, meta):
-            coords.children.append(Coordinate2d(xi, yi, meta=mi))
-        self.children.append(coords)
+
+        self.children.append(plot_data)
         self._label = Label()
         self._legend = LegendEntry()
         self.label = texlabel
@@ -569,6 +563,9 @@ class Plot(TikzCommand):
         self.label.write(file)
         self.legend.write(file)
 
+
+class CPlot(Plot):
+    name = "addplot+"
 
 class Fill(TikzElement):
     name = 'fill between'
@@ -601,13 +598,13 @@ class ErrorPlot(TikzElement):
 
     def __init__(self, x, y, e, *args, line_options=None, error_options=None, texlabel=None, legendentry=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self.line = Plot(x, y, texlabel=texlabel, legendentry=legendentry)
+        self.line = CPlot(Coordinates(zip(x, y)), texlabel=texlabel, legendentry=legendentry)
         self.line.options.add(*args, **kwargs)
         if line_options is not None:
             self.line.options.add(line_options)
         ex = _chain(x, reversed(x))
         ey = _chain((yi + ei[0] for yi, ei in zip(y, e)), (yi-ei[1] for yi, ei in reversed(list(zip(y, e)))))
-        self.error = Plot(ex, ey, 'fill', 'forget plot', draw='none', mark='none')
+        self.error = CPlot(Coordinates(zip(ex, ey)), 'fill', 'forget plot', draw='none', mark='none')
         self.error['fill opacity'] = 0.1
         self.error.options.add(*args, **kwargs)
         self.error.options.add(error_options)
@@ -658,14 +655,13 @@ class Violin(TikzElement):
         y = [location-p for p in pdf] + [location + p for p in pdf[-1::-1]]
         x_min = min(x)
         x_max = max(x)
-        ev = 0.05 * (x_max-x_min)
         if orientation == 'vertical':
-            self.violin = Plot(y, x + x[-1::-1])
-            self.line = Plot([location]*2, [x_min-ev, x_max+ev],
+            self.violin = CPlot(Coordinates(zip(y, x + x[-1::-1])))
+            self.line = Plot(Coordinates([(location, x_min), (location, x_max)]),
                              texlabel=texlabel, legendentry=legendentry)
         elif orientation == 'horizontal':
-            self.violin = Plot(x + x[-1::-1], y)
-            self.line = Plot([x_min - ev, x_max + ev], [location] * 2,
+            self.violin = CPlot(Coordinates(zip(x + x[-1::-1], y)))
+            self.line = Plot(Coordinates([(x_min, location), (x_max, location)]),
                              texlabel=texlabel, legendentry=legendentry)
         else:
             raise ValueError('Unknown orientation {}'.format(orientation))
@@ -689,6 +685,15 @@ class Violin(TikzElement):
 
 
 class Coordinates(BaseElement):
+    def __init__(self, data, error=None, meta=None):
+        super().__init__()
+        if error is None:
+            error = _repeat(None)
+        if meta is None:
+            meta = _repeat(None)
+        for d, e, m in zip(data, error, meta):
+            self.children.append(Coordinate(d, e, m))
+
     def write(self, file):
         file.write("%\n")
         file.write("coordinates {\n")
@@ -696,20 +701,17 @@ class Coordinates(BaseElement):
         file.write('};\n')
 
 
-class Coordinate:
-    def write(self, file):
-        pass
-
-
-class Coordinate2d(Coordinate, BaseValue):
-    def __init__(self, x, y, meta=None):
+class Coordinate(BaseValue):
+    def __init__(self, point, error=None, meta=None):
         super().__init__()
-        self.x = x
-        self.y = y
+        self.point = point
+        self.error = error
         self.meta = meta
 
     def write(self, file):
-        file.write("({}, {})".format(self.x, self.y))
+        file.write(str(self.point))
+        if self.error is not None:
+            file.write(" +- {}".format(self.error))
         if self.meta is not None:
             file.write(" [{}]".format(self.meta))
         file.write("\n")
