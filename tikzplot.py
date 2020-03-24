@@ -319,9 +319,13 @@ class Axis(TikzEnvironment):
         self.children.append(p)
 
     def violin(self, data,  *args, location=None, orientation='vertical', kd_options=None, grid=100,
-               width=0.8, expand_range=3, legendentry=None, texlabel=None, **kwargs):
+               width=0.8, expand_range=3, xmin=None, xmax=None, legendentry=None, texlabel=None, **kwargs):
         data = list(data)
-        kd_params = {'bandwidth': 1.06*stdev(data) * len(data)**(-1/5)}
+        if len(data) > 1:
+            kd_params = {'bandwidth': 1.06*stdev(data) * len(data)**(-1/5)}
+        else:
+            kd_params = {'bandwidth': 1e-5}
+
         if kd_options is not None:
             kd_params.update(kd_options)
         kde = KernelDensity(**kd_params)
@@ -331,8 +335,12 @@ class Axis(TikzEnvironment):
 
         sf = 0.5*width
         kde.fit([[di] for di in data])
-        step = ((max(data) + expand_range*kde.bandwidth) - (min(data) - expand_range*kde.bandwidth)) / grid
-        x = [min(data)-expand_range*kde.bandwidth + i*step for i in range(grid)]
+        if xmin is None:
+            xmin = min(data) - expand_range*kde.bandwidth
+        if xmax is None:
+            xmax = max(data) + expand_range*kde.bandwidth
+        step = (xmax - xmin) / grid
+        x = [xmin + i*step for i in range(grid)]
         y = kde.score_samples([[xi] for xi in x])
         my = max(y)
         y[:] = [exp(v-my) * sf for v in y]
