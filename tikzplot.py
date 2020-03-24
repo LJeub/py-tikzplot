@@ -639,13 +639,13 @@ class Violin(TikzElement):
             file.write(r'{\path[/pgfplots/.cd, smooth]')
             if self.orientation == 'vertical':
                 file.write(
-                    r' plot coordinates {(0.0cm, 0.25cm) (0.2cm, 0.125cm) (0.1cm, 0.0cm) (0.0cm, -0.25cm) (-0.1cm, 0.0cm) (-0.2cm, 0.125cm) (0.0cm, 0.25cm)};')
+                    r' plot coordinates {(0.0cm, 0.3cm) (0.2cm, 0.125cm) (0.1cm, 0.0cm) (0.0cm, -0.3cm) (-0.1cm, 0.0cm) (-0.2cm, 0.125cm) (0.0cm, 0.3cm)};')
                 file.write(r'\path')
                 line_opts.write(file)
                 file.write(r' plot coordinates {(0cm,-0.3cm) (0cm,0cm) (0cm,0.3cm)}; }')
             elif self.orientation == 'horizontal':
                 file.write(
-                    r' plot coordinates {(0.05cm, 0.0cm) (0.175cm, 0.2cm) (0.3cm, 0.1cm) (0.55cm, 0.0cm) (0.3cm, -0.1cm) (0.175cm, -0.2cm) (0.05cm, 0.0cm)};')
+                    r' plot coordinates {(0.0cm, 0.0cm) (0.175cm, 0.2cm) (0.3cm, 0.1cm) (0.6cm, 0.0cm) (0.3cm, -0.1cm) (0.175cm, -0.2cm) (0.0cm, 0.0cm)};')
                 file.write(r'\path')
                 line_opts.write(file)
                 file.write(r' plot coordinates {(0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)}; }')
